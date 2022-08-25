@@ -109,36 +109,36 @@ impl SkyMap {
         return ha;
     }
     pub fn calculate_az_alt(ha: f64, dec: f64, lat: f64) -> SearchResult {
-        /*  math behind calculations -- conversion from HA and DEC to ALT and  AZ
-        sin(ALT) = sin(DEC) * sin(LAT) + cos(DEC) * cos(LAT) * cos(HA)
-        ALT = asin(ALT)
-                   sin(DEC) - sin(ALT) * sin(LAT)
-        cos(A) = ---------------------------------
-                        cos(ALT) * cos(LAT)
-        A = acos(A)
-        If sin(HA) is negative,then AZ = A, otherwise AZ = 360 - A */
+        /*  math behind calculations -- conversion from HA and DEC to alt and  az
+        sin(alt) = sin(DEC) * sin(LAT) + cos(DEC) * cos(LAT) * cos(HA)
+        alt = asin(alt)
+                   sin(DEC) - sin(alt) * sin(LAT)
+        cos(a) = ---------------------------------
+                        cos(alt) * cos(LAT)
+        a = acos(a)
+        If sin(HA) is negative,then az = a, otherwise az = 360 - a */
 
-        let sinDEC = f64::sin(SkyMap::deg2rad(dec));
-        let sinHA = f64::sin(SkyMap::deg2rad(ha));
-        let sinLAT = f64::sin(SkyMap::deg2rad(lat));
-        let cosDEC = f64::cos(SkyMap::deg2rad(dec));
-        let cosHA = f64::cos(SkyMap::deg2rad(ha));
-        let cosLAT = f64::cos(SkyMap::deg2rad(lat));
-        let sinALT = (sinDEC * sinLAT) + (cosDEC * cosLAT * cosHA);
-        let mut ALT = f64::asin(sinALT);
-        let cosALT = f64::cos((ALT));
-        let cosA = (sinDEC - sinALT * sinLAT) / (cosALT * cosLAT);
-        let mut A = f64::acos(cosA);
-        A = SkyMap::rad2deg(A);
-        ALT = SkyMap::rad2deg(ALT);
+        let sin_dec = f64::sin(SkyMap::deg2rad(dec));
+        let sin_ha = f64::sin(SkyMap::deg2rad(ha));
+        let sin_lat = f64::sin(SkyMap::deg2rad(lat));
+        let cos_dec = f64::cos(SkyMap::deg2rad(dec));
+        let cos_ha = f64::cos(SkyMap::deg2rad(ha));
+        let cos_lat = f64::cos(SkyMap::deg2rad(lat));
+        let sin_alt = (sin_dec * sin_lat) + (cos_dec * cos_lat * cos_ha);
+        let mut alt = f64::asin(sin_alt);
+        let cos_alt = f64::cos((alt));
+        let cos_a = (sin_dec - sin_alt * sin_lat) / (cos_alt * cos_lat);
+        let mut a = f64::acos(cos_a);
+        a = SkyMap::rad2deg(a);
+        alt = SkyMap::rad2deg(alt);
 
-        let mut AZ = 0.00;
-        if sinHA > 0.00 {
-            AZ = 360.00 - A;
+        let mut _az = 0.00;
+        if sin_ha > 0.00 {
+            _az = 360.00 - a;
         } else {
-            AZ = A;
+            _az = a;
         }
-        return SearchResult { az: AZ, alt: ALT };
+        return SearchResult { az: _az, alt: alt };
     }
 
     pub fn calculate(&mut self) -> SearchResult {
