@@ -20,7 +20,6 @@ pub struct SkyMap {
     star_coordinates: StarCoordinates,
     observer_position: ObserverPosition,
     date_time: DateTime,
-    newday: f64,
 }
 
 impl SkyMap {
@@ -44,7 +43,6 @@ impl SkyMap {
             observer_position: initial_observer_position,
             date_time: initial_date_time,
             star_coordinates: initial_star_coordinates,
-            newday: 0.00,
         };
     }
     pub fn rad2deg(value: f64) -> f64 {
@@ -126,7 +124,7 @@ impl SkyMap {
         let cos_lat = f64::cos(SkyMap::deg2rad(lat));
         let sin_alt = (sin_dec * sin_lat) + (cos_dec * cos_lat * cos_ha);
         let mut alt = f64::asin(sin_alt);
-        let cos_alt = f64::cos((alt));
+        let cos_alt = f64::cos(alt);
         let cos_a = (sin_dec - sin_alt * sin_lat) / (cos_alt * cos_lat);
         let mut a = f64::acos(cos_a);
         a = SkyMap::rad2deg(a);
