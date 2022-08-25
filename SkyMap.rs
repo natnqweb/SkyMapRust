@@ -155,18 +155,20 @@ fn main() {
     let mut _skymap = SkyMap::new();
 
     let time_and_date_of_observation = DateTime {
-        year: 2022.00,
-        month: 12.00,
-        day: 6.00,
-        time: 13.45,
+        year: 2021.00,
+        month: 9.00,
+        day: 4.00,
+        time: 20.2, // UTC
     };
+    //Sirius
     let star_coordinates = StarCoordinates {
-        ra: 150.00,
-        dec: -122.00,
+        ra: 101.52,
+        dec: -16.7424,
     };
+    // Los Angeles
     let my_position = ObserverPosition {
-        lat: 50.00,
-        lng: 21.00,
+        lat: 34.05,
+        lng: -118.24358,
     };
     _skymap.set_date_time(time_and_date_of_observation);
     _skymap.set_star_coordinates(star_coordinates);
